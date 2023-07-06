@@ -5,7 +5,7 @@ from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import pkcs1_15
 
-from src.wallet.utils import generate_transaction_data, convert_transaction_data_to_bytes, calculate_hash
+from src.transaction.utils import generate_transaction_data, convert_transaction_data_to_bytes, calculate_hash
 
 
 class Owner:

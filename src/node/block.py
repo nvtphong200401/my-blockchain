@@ -1,6 +1,6 @@
 import json
 
-from src.node.utils import calculate_hash
+from src.transaction.utils import calculate_hash
 
 
 class Block:
