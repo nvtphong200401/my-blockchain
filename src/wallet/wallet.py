@@ -1,50 +1,21 @@
-import binascii
-
 import base58
-from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
-from Crypto.Signature import pkcs1_15
 
-from src.transaction.utils import generate_transaction_data, convert_transaction_data_to_bytes, calculate_hash
-
-
-class Owner:
-    def __init__(self, private_key: RSA.RsaKey, public_key: bytes, bitcoin_address: bytes):
-        self.private_key = private_key
-        self.public_key = public_key
-        self.bitcoin_address = bitcoin_address
+from src.common.utils import calculate_hash
+from src.node.node import Node
+from src.transaction.transaction import Transaction
+from src.transaction.transaction_input import TransactionInput
+from src.transaction.transaction_output import TransactionOutput
+from src.wallet.owner import Owner
+import requests
 
 
-def initialize_wallet():
-    private_key = RSA.generate(2048)
-    public_key = private_key.publickey().export_key()
-    hash_1 = calculate_hash(public_key, hash_function="sha256")
-    hash_2 = calculate_hash(hash_1, hash_function="ripemd160")
-    bitcoin_address = base58.b58encode(hash_2)
-    return Owner(private_key, public_key, bitcoin_address)
-
-
-class Transaction:
-    def __init__(self, owner: Owner, receiver_bitcoin_address: bytes, amount: int, signature: str = ""):
+class Wallet:
+    def __init__(self, owner: Owner):
         self.owner = owner
-        self.receiver_bitcoin_address = receiver_bitcoin_address
-        self.amount = amount
-        self.signature = signature
+        self.node = Node(ip="127.0.0.1", port=5000)
 
-    def generate_data(self) -> bytes:
-        transaction_data = generate_transaction_data(self.owner.bitcoin_address, self.receiver_bitcoin_address, self.amount)
-        return convert_transaction_data_to_bytes(transaction_data)
-
-    def sign(self):
-        transaction_data = self.generate_data()
-        hash_object = SHA256.new(transaction_data)
-        signature = pkcs1_15.new(self.owner.private_key).sign(hash_object)
-        self.signature = binascii.hexlify(signature).decode("utf-8")
-
-    def send_to_nodes(self):
-        return {
-            "sender_address": self.owner.bitcoin_address,
-            "receiver_address": self.receiver_bitcoin_address,
-            "amount": self.amount,
-            "signature": self.signature
-        }
+    def process_transaction(self, inputs: [TransactionInput], outputs: [TransactionOutput]) -> requests.Response:
+        transaction = Transaction(self.owner, inputs, outputs)
+        transaction.sign()
+        return self.node.post(endpoint="transactions", data={"transaction": transaction.transaction_data})
