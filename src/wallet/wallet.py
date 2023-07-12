@@ -1,12 +1,12 @@
 import base58
 from Crypto.PublicKey import RSA
 
-from src.common.utils import calculate_hash
-from src.node.node import Node
-from src.transaction.transaction import Transaction
-from src.transaction.transaction_input import TransactionInput
-from src.transaction.transaction_output import TransactionOutput
-from src.wallet.owner import Owner
+from common.utils import calculate_hash
+from node.node import Node
+from transaction.transaction import Transaction
+from transaction.transaction_input import TransactionInput
+from transaction.transaction_output import TransactionOutput
+from wallet.owner import Owner
 import requests
 
 

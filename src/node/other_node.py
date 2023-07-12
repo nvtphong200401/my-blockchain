@@ -1,6 +1,6 @@
 import requests
 
-from src.node.node import Node
+from node.node import Node
 
 
 class OtherNode(Node):

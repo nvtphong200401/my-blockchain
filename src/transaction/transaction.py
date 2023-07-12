@@ -3,9 +3,9 @@ import json
 
 from Crypto.Hash import SHA256
 from Crypto.Signature import pkcs1_15
-from src.transaction.transaction_input import TransactionInput
-from src.transaction.transaction_output import TransactionOutput
-from src.wallet.owner import Owner
+from transaction.transaction_input import TransactionInput
+from transaction.transaction_output import TransactionOutput
+from wallet.owner import Owner
 
 
 class Transaction:

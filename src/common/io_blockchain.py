@@ -1,7 +1,7 @@
 import json
 
-from src.block.block import Block
-from src.block.block_header import BlockHeader
+from block.block import Block
+from block.block_header import BlockHeader
 
 FILENAME = "src/doc/blockchain"
 

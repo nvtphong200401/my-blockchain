@@ -1,6 +1,6 @@
 import json
 
-from src.common.utils import calculate_hash
+from common.utils import calculate_hash
 
 
 class BlockHeader:

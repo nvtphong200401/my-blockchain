@@ -3,7 +3,7 @@ import binascii
 import base58
 from Crypto.PublicKey import RSA
 
-from src.common.utils import calculate_hash
+from common.utils import calculate_hash
 
 class Owner:
     def __init__(self, private_key: str = ""):

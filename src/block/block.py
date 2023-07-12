@@ -1,6 +1,6 @@
 import json
 
-from src.block.block_header import BlockHeader
+from block.block_header import BlockHeader
 
 
 class Block:

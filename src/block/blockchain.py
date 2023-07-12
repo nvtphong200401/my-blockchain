@@ -1,8 +1,8 @@
-from src.block.block import Block
-from src.block.block_header import BlockHeader
-from src.common.constants import NUMBER_OF_LEADING_ZEROS
-from src.common.io_blockchain import store_blockchain_in_memory
-from src.node.node_transaction import NodeTransaction
+from block.block import Block
+from block.block_header import BlockHeader
+from common.constants import NUMBER_OF_LEADING_ZEROS
+from common.io_blockchain import store_blockchain_in_memory
+from node.node_transaction import NodeTransaction
 
 
 class NewBlockException(Exception):

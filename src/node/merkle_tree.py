@@ -1,7 +1,7 @@
 import json
 import math
 
-from src.common.utils import calculate_hash
+from common.utils import calculate_hash
 
 
 class TreeNode:

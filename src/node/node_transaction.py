@@ -6,11 +6,11 @@ import json
 import binascii
 import copy
 
-from src.common.io_mem_pool import get_transactions_from_memory, store_transactions_in_memory
-from src.contract.script import StackScript
-from src.block.block import Block
-from src.common.utils import calculate_hash
-from src.node.other_node import OtherNode
+from common.io_mem_pool import get_transactions_from_memory, store_transactions_in_memory
+from contract.script import StackScript
+from block.block import Block
+from common.utils import calculate_hash
+from node.other_node import OtherNode
 
 
 class NodeTransaction:

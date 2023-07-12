@@ -1,11 +1,11 @@
 # main.py
 from flask import Flask, request, jsonify
 
-from src.block.blockchain import Blockchain, NewBlockException
-from src.common.io_blockchain import get_blockchain_from_memory
-from src.init_blockchain import initialize_blockchain
-from src.node.node_transaction import NodeTransaction
-from src.transaction.transaction_exception import TransactionException
+from block.blockchain import Blockchain, NewBlockException
+from common.io_blockchain import get_blockchain_from_memory
+from init_blockchain import initialize_blockchain
+from node.node_transaction import NodeTransaction
+from transaction.transaction_exception import TransactionException
 
 
 app = Flask(__name__)

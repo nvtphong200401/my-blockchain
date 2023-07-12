@@ -1,15 +1,15 @@
 import json
 from datetime import datetime
 
-from src.block.block import Block
-from src.block.block_exception import BlockException
-from src.block.block_header import BlockHeader
-from src.common.constants import NUMBER_OF_LEADING_ZEROS
-from src.common.io_blockchain import get_blockchain_from_memory
-from src.common.io_mem_pool import get_transactions_from_memory
-from src.common.utils import calculate_hash
-from src.node.merkle_tree import get_merkle_root
-from src.node.other_node import OtherNode
+from block.block import Block
+from block.block_exception import BlockException
+from block.block_header import BlockHeader
+from common.constants import NUMBER_OF_LEADING_ZEROS
+from common.io_blockchain import get_blockchain_from_memory
+from common.io_mem_pool import get_transactions_from_memory
+from common.utils import calculate_hash
+from node.merkle_tree import get_merkle_root
+from node.other_node import OtherNode
 
 
 class ProofOfWork:
