@@ -1,1 +1,3 @@
 NUMBER_OF_LEADING_ZEROS = 3
+BLOCK_REWARD = 6.25
+KNOWN_NODES_FILE = 'src/doc/known_nodes.json'

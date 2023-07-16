@@ -3,33 +3,44 @@ import json
 
 from Crypto.Hash import SHA256
 from Crypto.Signature import pkcs1_15
+from common.utils import calculate_hash
 from transaction.transaction_input import TransactionInput
 from transaction.transaction_output import TransactionOutput
 from wallet.owner import Owner
 
 
 class Transaction:
-    def __init__(self, owner: Owner, inputs: [TransactionInput], outputs: [TransactionOutput]):
-        self.owner = owner
+    def __init__(self, inputs: [TransactionInput], outputs: [TransactionOutput]):
         self.inputs = inputs
         self.outputs = outputs
+        self.transaction_hash = self.get_transaction_hash()
 
-    def sign_transaction_data(self):
-        transaction_dict = {"inputs": [tx_input.to_json(with_unlocking_script=False) for tx_input in self.inputs],
-                            "outputs": [tx_output.to_json() for tx_output in self.outputs]}
+    def get_transaction_hash(self) -> str:
+        transaction_data = {
+            "inputs": [i.to_dict() for i in self.inputs],
+            "outputs": [i.to_dict() for i in self.outputs]
+        }
+        transaction_bytes = json.dumps(transaction_data, indent=2)
+        return calculate_hash(transaction_bytes)
+
+    def sign_transaction_data(self, owner):
+        transaction_dict = {"inputs": [tx_input.to_dict(with_unlocking_script=False) for tx_input in self.inputs],
+                            "outputs": [tx_output.to_dict() for tx_output in self.outputs]}
         transaction_bytes = json.dumps(transaction_dict, indent=2).encode('utf-8')
         hash_object = SHA256.new(transaction_bytes)
-        signature = pkcs1_15.new(self.owner.private_key).sign(hash_object)
+        signature = pkcs1_15.new(owner.private_key).sign(hash_object)
         return signature
 
-    def sign(self):
-        signature_hex = binascii.hexlify(self.sign_transaction_data()).decode("utf-8")
+    def sign(self, owner):
+        signature_hex = binascii.hexlify(self.sign_transaction_data(owner)).decode("utf-8")
         for transaction_input in self.inputs:
-            transaction_input.unlocking_script = f"{signature_hex} {self.owner.public_key_hex}"
+            transaction_input.unlocking_script = f"{signature_hex} {owner.public_key_hex}"
 
     @property
     def transaction_data(self) -> dict:
-        return {
-            "inputs": [i.to_json() for i in self.inputs],
-            "outputs": [i.to_json() for i in self.outputs]
+        transaction_data = {
+            "inputs": [i.to_dict() for i in self.inputs],
+            "outputs": [i.to_dict() for i in self.outputs],
+            "transaction_hash": self.transaction_hash
         }
+        return transaction_data

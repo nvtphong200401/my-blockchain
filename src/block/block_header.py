@@ -36,7 +36,6 @@ class BlockHeader:
             "merkle_root": self.merkle_root,
             "timestamp": self.timestamp,
             "nonce": self.nonce,
-            "hash": self.hash
         }
 
     def __str__(self):

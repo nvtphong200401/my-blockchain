@@ -79,6 +79,7 @@ class Block:
         current_block = self
         while current_block.previous_block:
             for transaction in current_block.transactions:
+                print(transaction)
                 for output in transaction["outputs"]:
                     locking_script = output["locking_script"]
                     for element in locking_script.split(" "):
