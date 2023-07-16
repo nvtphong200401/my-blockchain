@@ -9,6 +9,9 @@ from node.node import Node
 from node.node_transaction import NodeTransaction
 from transaction.transaction import Transaction
 from transaction.transaction_exception import TransactionException
+from wallet.owner import Owner
+from wallet.wallet import Wallet
+from blockchain_user.camille import private_key as camille_private_key
 
 
 app = Flask(__name__)
@@ -85,6 +88,15 @@ def new_node_advertisement():
 def known_node_request():
     return jsonify(network.return_known_nodes())
 
+
+@app.route("/create_wallet", methods=['GET'])
+def create_wallet():
+    owner = Owner()
+    # Wallet(owner=owner)
+    return {
+        # "private_key": owner.private_key.export_key(),
+        "public_key": owner.public_key_hash
+    }
 
 def main():
     global network

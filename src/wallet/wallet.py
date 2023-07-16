@@ -13,7 +13,7 @@ import requests
 class Wallet:
     def __init__(self, owner: Owner):
         self.owner = owner
-        self.node = Node(ip="127.0.0.1", port=5000)
+        self.node = Node(hostname="localhost")
 
     def process_transaction(self, inputs: [TransactionInput], outputs: [TransactionOutput]) -> requests.Response:
         transaction = Transaction(self.owner, inputs, outputs)
